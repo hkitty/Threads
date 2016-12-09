@@ -13,11 +13,14 @@ public class Form extends JPanel {
 	public Form() {
 		initComponents();
 		
-		for(int i = 0; i < 4; i++)
-		{
-			PausableTask task = new PausableTask(i+1);	
-			this.vec.add(task);
-		}
+		PausableTask task1 = new PausableTask(1, thread1Button, textPane1);	
+		this.vec.add(task1);
+		PausableTask task2 = new PausableTask(2, thread2Button, textPane1);	
+		this.vec.add(task2);
+		PausableTask task3 = new PausableTask(3, thread3Button, textPane1);	
+		this.vec.add(task3);
+		PausableTask task4 = new PausableTask(4, thread4Button, textPane1);	
+		this.vec.add(task4);
 	}
 
 //	private void button2ActionPerformed(ActionEvent e) {
@@ -44,15 +47,10 @@ public class Form extends JPanel {
 	}
 
 	private void terminateButtonActionPerformed(ActionEvent e) {
-		// TODO add your code here
-	}
-
-	private void button1ActionPerformed(ActionEvent e) {
-		// TODO add your code here
-	}
-
-	private void button2ActionPerformed(ActionEvent e) {
-		// TODO add your code here
+		for(int i = 0; i < vec.size(); i++)
+		{
+			vec.elementAt(i).stop();
+		}
 	}
 
 	private void initComponents() {
@@ -85,8 +83,6 @@ public class Form extends JPanel {
 			terminateButton.setText("Stop");
 			terminateButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					button1ActionPerformed(e);
-					button1ActionPerformed(e);
 					terminateButtonActionPerformed(e);
 				}
 			});
@@ -102,7 +98,6 @@ public class Form extends JPanel {
 			thread1Button.setText("Thread 1");
 			thread1Button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					button2ActionPerformed(e);
 					thread1ButtonActionPerformed(e);
 				}
 			});
@@ -160,6 +155,24 @@ public class Form extends JPanel {
 	
 	private void manageThreads(JButton button, int threadNum)
 	{
-		//if(button.getText() == 
+		if(button.getText() == "Suspend")
+		{
+			button.setText("Continue");
+			vec.elementAt(threadNum-1).pause();
+		}
+		else if(button.getText() == "Continue")
+		{
+			button.setText("Suspend");
+			vec.elementAt(threadNum-1).resume();
+		}
+		else if(button.getText() == "Done")
+		{
+			
+		}
+		else 
+		{
+			button.setText("Suspend");
+			vec.elementAt(threadNum-1).start();
+		}
 	}
 }

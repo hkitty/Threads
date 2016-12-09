@@ -8,6 +8,7 @@ new FormModel {
 			"$rowSpecs": "default, linegap, 111dlu, linegap, default"
 		} ) {
 			name: "panelMain"
+			addEvent( new FormEvent( "java.awt.event.ComponentListener", "componentShown", "panelMainComponentShown", true ) )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "terminateButton"
 				"text": "Stop"
@@ -32,6 +33,7 @@ new FormModel {
 				"text": "Thread 1"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button2ActionPerformed", true ) )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "thread1ButtonActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ComponentListener", "componentShown", "thread1ButtonComponentShown", true ) )
 			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 				"gridX": 1
 				"gridY": 5

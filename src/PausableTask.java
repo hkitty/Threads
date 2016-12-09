@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.concurrent.*;
+import javax.swing.*;
 
 public  class PausableTask implements  Runnable{
 
@@ -8,39 +9,38 @@ public  class PausableTask implements  Runnable{
  protected volatile int number;
  protected volatile int limit;
  protected volatile int currentSum;
+ protected JButton button;
+ protected JTextPane textPane;
  
  
- public PausableTask(int nmb){
+ public PausableTask(int nmb, JButton btn, JTextPane pane){
 	 number = nmb;
 	 limit = number * 100;
- }
- private void someJob() {
-  System.out.println("Job Done :- " + number);
-
+	 button = btn;
+	 textPane = pane;
  }
  
  void task() {
 	 Random rand = new Random();
 	 int randomNum = rand.nextInt(100) + 1;
 	 currentSum += randomNum;
-	 System.out.println("Thread " + number + " (limit = " + limit + "): " + randomNum + 
-			 ", sum = " + currentSum);
+	 textPane.setText(textPane.getText() + "Thread " + number + " (limit = " + limit + "): "
+	 + randomNum + ", sum = " + currentSum + "\n");
 	 if ( currentSum >= limit ) {
-		 System.out.println("Thread " + number + ": Done");
+		 textPane.setText(textPane.getText() + "Thread " + number + ": Done \n");
 		 this.stop();
 		 return;
 	 }
 	 try {
 		TimeUnit.MILLISECONDS.sleep(randomNum*50);
 	} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
-		//e.printStackTrace();
 	}
 }
  
  public void run() {
-  while(!Thread.currentThread().interrupted()){
-   task();  
+  while(!Thread.currentThread().isInterrupted()){
+	  if(!publisher.isCancelled())
+		  task();  
   }
  }
 
@@ -49,17 +49,16 @@ public  class PausableTask implements  Runnable{
  }
  
  public void pause() {
-  //counter = 100;
   publisher.cancel(true);
  }
  
  public void resume() {
-  //counter = 200;
   start();
  }
  
  public void stop() {
-  //counter = 300;
+  button.setText("Done");
   executor.shutdownNow();
  }
+ 
 }
