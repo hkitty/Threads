@@ -12,31 +12,60 @@ import com.jgoodies.forms.layout.*;
 public class Form extends JPanel {
 	public Form() {
 		initComponents();
+		
+		for(int i = 0; i < 4; i++)
+		{
+			PausableTask task = new PausableTask(i+1);	
+			this.vec.add(task);
+		}
+	}
+
+//	private void button2ActionPerformed(ActionEvent e) {
+//		PausableTask task = new PausableTask(currentTask);
+//		this.vec.add(task);
+//		task.start();
+//		currentTask++;
+//	}
+
+	private void thread1ButtonActionPerformed(ActionEvent e) {
+		manageThreads(thread1Button, 1);
+	}
+
+	private void thread2ButtonActionPerformed(ActionEvent e) {
+		manageThreads(thread2Button, 2);
+	}
+
+	private void thread3ButtonActionPerformed(ActionEvent e) {
+		manageThreads(thread3Button, 3);
+	}
+
+	private void thread4ButtonActionPerformed(ActionEvent e) {
+		manageThreads(thread4Button, 4);
+	}
+
+	private void terminateButtonActionPerformed(ActionEvent e) {
+		// TODO add your code here
 	}
 
 	private void button1ActionPerformed(ActionEvent e) {
-		this.button1.setText("Stop");
-		this.button2.setEnabled(true);
+		// TODO add your code here
 	}
 
 	private void button2ActionPerformed(ActionEvent e) {
-		PausableTask task = new PausableTask(currentTask);
-		this.vec.add(task);
-		task.start();
-		currentTask++;
+		// TODO add your code here
 	}
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - Alan Walker
+		// Generated using JFormDesigner Evaluation license - Garry Moore
 		panelMain = new JPanel();
-		button1 = new JButton();
+		terminateButton = new JButton();
 		scrollPane1 = new JScrollPane();
 		textPane1 = new JTextPane();
-		button2 = new JButton();
-		button3 = new JButton();
-		button4 = new JButton();
-		button5 = new JButton();
+		thread1Button = new JButton();
+		thread2Button = new JButton();
+		thread3Button = new JButton();
+		thread4Button = new JButton();
 
 		//======== panelMain ========
 		{
@@ -49,46 +78,62 @@ public class Form extends JPanel {
 					java.awt.Color.red), panelMain.getBorder())); panelMain.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
 			panelMain.setLayout(new FormLayout(
-				"7*(default, $lcgap), default",
+				"6*(default, $lcgap), default",
 				"default, $lgap, 111dlu, $lgap, default"));
 
-			//---- button1 ----
-			button1.setText("Start");
-			button1.addActionListener(new ActionListener() {
+			//---- terminateButton ----
+			terminateButton.setText("Stop");
+			terminateButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					button1ActionPerformed(e);
 					button1ActionPerformed(e);
+					terminateButtonActionPerformed(e);
 				}
 			});
-			panelMain.add(button1, CC.xywh(1, 1, 15, 1));
+			panelMain.add(terminateButton, CC.xywh(1, 1, 13, 1));
 
 			//======== scrollPane1 ========
 			{
 				scrollPane1.setViewportView(textPane1);
 			}
-			panelMain.add(scrollPane1, CC.xywh(1, 2, 15, 2));
+			panelMain.add(scrollPane1, CC.xywh(1, 2, 13, 2));
 
-			//---- button2 ----
-			button2.setText("Thread");
-			button2.setEnabled(false);
-			button2.addActionListener(new ActionListener() {
+			//---- thread1Button ----
+			thread1Button.setText("Thread 1");
+			thread1Button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					button2ActionPerformed(e);
+					thread1ButtonActionPerformed(e);
 				}
 			});
-			panelMain.add(button2, CC.xy(1, 5));
+			panelMain.add(thread1Button, CC.xy(1, 5));
 
-			//---- button3 ----
-			button3.setText("Done");
-			panelMain.add(button3, CC.xy(5, 5));
+			//---- thread2Button ----
+			thread2Button.setText("Thread 2");
+			thread2Button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					thread2ButtonActionPerformed(e);
+				}
+			});
+			panelMain.add(thread2Button, CC.xy(5, 5));
 
-			//---- button4 ----
-			button4.setText("Continue");
-			panelMain.add(button4, CC.xy(11, 5));
+			//---- thread3Button ----
+			thread3Button.setText("Thread 3");
+			thread3Button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					thread3ButtonActionPerformed(e);
+				}
+			});
+			panelMain.add(thread3Button, CC.xy(9, 5));
 
-			//---- button5 ----
-			button5.setText("Suspend");
-			panelMain.add(button5, CC.xy(15, 5));
+			//---- thread4Button ----
+			thread4Button.setText("Thread 4");
+			thread4Button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					thread4ButtonActionPerformed(e);
+				}
+			});
+			panelMain.add(thread4Button, CC.xy(13, 5));
 		}
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 	}
@@ -101,16 +146,20 @@ public class Form extends JPanel {
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - Alan Walker
+	// Generated using JFormDesigner Evaluation license - Garry Moore
 	private JPanel panelMain;
-	private JButton button1;
+	private JButton terminateButton;
 	private JScrollPane scrollPane1;
 	private JTextPane textPane1;
-	private JButton button2;
-	private JButton button3;
-	private JButton button4;
-	private JButton button5;
+	private JButton thread1Button;
+	private JButton thread2Button;
+	private JButton thread3Button;
+	private JButton thread4Button;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 	private Vector<PausableTask> vec = new Vector<PausableTask>();
-	private int currentTask = 1;
+	
+	private void manageThreads(JButton button, int threadNum)
+	{
+		//if(button.getText() == 
+	}
 }
