@@ -1,4 +1,8 @@
+import java.awt.event.*;
+import java.util.Vector;
+
 import javax.swing.*;
+
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
 /*
@@ -8,6 +12,18 @@ import com.jgoodies.forms.layout.*;
 public class Form extends JPanel {
 	public Form() {
 		initComponents();
+	}
+
+	private void button1ActionPerformed(ActionEvent e) {
+		this.button1.setText("Stop");
+		this.button2.setEnabled(true);
+	}
+
+	private void button2ActionPerformed(ActionEvent e) {
+		PausableTask task = new PausableTask(currentTask);
+		this.vec.add(task);
+		task.start();
+		currentTask++;
 	}
 
 	private void initComponents() {
@@ -38,6 +54,12 @@ public class Form extends JPanel {
 
 			//---- button1 ----
 			button1.setText("Start");
+			button1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					button1ActionPerformed(e);
+					button1ActionPerformed(e);
+				}
+			});
 			panelMain.add(button1, CC.xywh(1, 1, 15, 1));
 
 			//======== scrollPane1 ========
@@ -48,6 +70,12 @@ public class Form extends JPanel {
 
 			//---- button2 ----
 			button2.setText("Thread");
+			button2.setEnabled(false);
+			button2.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					button2ActionPerformed(e);
+				}
+			});
 			panelMain.add(button2, CC.xy(1, 5));
 
 			//---- button3 ----
@@ -83,4 +111,6 @@ public class Form extends JPanel {
 	private JButton button4;
 	private JButton button5;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
+	private Vector<PausableTask> vec = new Vector<PausableTask>();
+	private int currentTask = 1;
 }
