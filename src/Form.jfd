@@ -7,10 +7,10 @@ new FormModel {
 			"$columnSpecs": "default, labelcompgap, default, labelcompgap, default, labelcompgap, default, labelcompgap, default, labelcompgap, default, labelcompgap, default, labelcompgap, default"
 			"$rowSpecs": "default, linegap, 111dlu, linegap, default"
 		} ) {
-			name: "this"
+			name: "panelMain"
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button1"
-				"text": "Stop"
+				"text": "Start"
 			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 				"gridWidth": 15
 			} )
